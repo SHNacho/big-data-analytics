@@ -1,0 +1,14 @@
+{
+    "name": "spark",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "spark",
+    "workspaceFolder": "/home/spark/big-data-analytics",
+    "overrideCommand": true,
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "scalameta.metals"
+            ]
+        }
+    }
+}

@@ -1,0 +1,6 @@
+services:
+  spark:
+    build: .
+    volumes:
+      - ../:/home/spark/
+    tty: true

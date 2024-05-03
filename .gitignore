@@ -1,0 +1,7 @@
+datasets*
+.vscode
+.metals
+big-data-analytics/target
+big-data-analytics/project
+big-data-analytics/.bloop
+big-data-analytics/.bsp

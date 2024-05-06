@@ -8,4 +8,4 @@ RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/ap
 && apt-get update \
 && apt-get install -y sbt openjdk-17-source
 
-RUN ln -s python3 python
+RUN ln -s /bin/python3 /bin/python

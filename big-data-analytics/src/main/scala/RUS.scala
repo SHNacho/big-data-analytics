@@ -1,6 +1,6 @@
 import org.apache.spark.sql.DataFrame
 
-class RUS(_labelCol: String) {
+class RUS(_labelCol: String = "label") {
   var labelCol: String = _labelCol
   
 	def transform(df: DataFrame): DataFrame = {

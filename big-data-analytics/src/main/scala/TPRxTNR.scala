@@ -6,20 +6,24 @@ import org.apache.spark.sql.types.IntegerType
 import org.apache.spark.sql.{Dataset, functions => F}
 import org.apache.spark.ml.param.Param
 
-class TruePositiveRateEvaluator(override val uid: String) extends Evaluator with HasPredictionCol with HasLabelCol{
+class TPRxTNR(override val uid: String) extends Evaluator with HasPredictionCol with HasLabelCol{
 
-  def this() = this(Identifiable.randomUID("TruePositiveRateEvaluator"))
+  def this() = this(Identifiable.randomUID("TPRxTNR"))
 
   def setPredictionCol(value: String): this.type = set(predictionCol, value)
   def setLabelCol(value: String): this.type = set(labelCol, value)
 
   def evaluate(dataset: Dataset[_]): Double = {
+    val trueNegative = F.sum(((F.col(getLabelCol) === 0) && (F.col(getPredictionCol) === 0)).cast(IntegerType))
+    val actualNegative = F.sum((F.col(getLabelCol) === 0).cast(IntegerType))
     val truePositive = F.sum(((F.col(getLabelCol) === 1) && (F.col(getPredictionCol) === 1)).cast(IntegerType))
     val actualPositive = F.sum((F.col(getLabelCol) === 1).cast(IntegerType))
 
-    val recall = truePositive / actualPositive
+    val tnr = trueNegative / actualNegative
+    val tpr = truePositive / actualPositive
+    val tprtnr = tpr * tnr
 
-    dataset.select(recall).collect()(0)(0).asInstanceOf[Double]
+    dataset.select(tprtnr).collect()(0)(0).asInstanceOf[Double]
   }
 
   override def copy(extra: ParamMap): Evaluator = defaultCopy(extra)

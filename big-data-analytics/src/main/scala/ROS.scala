@@ -1,6 +1,6 @@
 import org.apache.spark.sql.DataFrame
 
-class ROS(_labelCol: String, _overRate: Double = 1.0) {
+class ROS(_labelCol: String = "label", _overRate: Double = 1.0) {
   var labelCol: String = _labelCol
 	var overRate: Double = _overRate
 
